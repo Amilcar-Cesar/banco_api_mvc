@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class CnpjRepositoryInterface(ABC):
-    
+
     @abstractmethod
     def sacar_dinheiro(self):
         pass
