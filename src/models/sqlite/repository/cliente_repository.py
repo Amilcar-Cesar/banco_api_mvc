@@ -1,7 +1,6 @@
 from src.models.sqlite.entities.clientes import ClienteTable
-from src.models.sqlite.interface.cliente_interface import ClienteInterface
 
-class CpfRepository(ClienteInterface):
+class ClienteRepository():
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
 
