@@ -26,7 +26,7 @@ class CpfRepository(ClienteInterface):
     def list_accounts(self):
         with self.__db_connection as database:
             try:
-                accounts = database.session.query(CPFTable.nome_completo, CPFTable.email).all()
+                accounts = database.session.query(ClienteTable.nome_completo, ClienteTable.email).all()
                 
                 return accounts
             except Exception:
