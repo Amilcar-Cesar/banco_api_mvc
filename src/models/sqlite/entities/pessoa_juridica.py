@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String, Integer, REAL
 from src.models.sqlite.settings.base import Base
 
-class ClienteTable(Base):
-    __tablename__ = "clientes"
+class CnpjTable(Base):
+    __tablename__ = "pessoa_juridica"
 
     id = Column(Integer, primary_key=True)
     renda_mensal = Column(REAL)

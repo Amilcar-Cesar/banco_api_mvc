@@ -1,13 +1,13 @@
-from src.models.sqlite.entities.clientes import ClienteTable
+from src.models.sqlite.entities.pessoa_juridica import CnpjTable
 
-class ClienteRepository():
+class CnpjRepository():
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
 
     def create_account(self, renda_mensal: float, idade: int, nome_completo: str, celular: str, email: str, categoria: str, saldo: float) -> None:
         with self.__db_connection as database:
             try:
-                account_data = ClienteTable(
+                account_data = CnpjTable(
                     renda_mensal=renda_mensal,
                     idade=idade,
                     nome_completo=nome_completo,
@@ -25,8 +25,23 @@ class ClienteRepository():
     def list_accounts(self):
         with self.__db_connection as database:
             try:
-                accounts = database.session.query(ClienteTable.nome_completo, ClienteTable.email).all()
+                accounts = database.session.query(CnpjTable.nome_completo, CnpjTable.email).all()
                 
                 return accounts
             except Exception:
                 return []
+        
+    def get_account(self, cliente_id: int):
+        with self.__db_connection as database:
+            try:
+                account = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+                return account
+            except Exception:
+                raise ValueError("Conta não existe.")
+    
+    def atualizar_saldo(self, cliente_id, novo_saldo):
+        with self.__db_connection as database:
+            cliente = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+            cliente.saldo = novo_saldo
+            database.session.commit()
+    
