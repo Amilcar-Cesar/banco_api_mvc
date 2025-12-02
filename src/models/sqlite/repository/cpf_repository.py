@@ -1,14 +1,14 @@
-from src.models.sqlite.entities.pessoa_fisica import CPFTable
-from src.models.sqlite.interface.cpf_interface import CpfInterface
+from src.models.sqlite.entities.clientes import ClienteTable
+from src.models.sqlite.interface.cliente_interface import ClienteInterface
 
-class CpfRepository(CpfInterface):
+class CpfRepository(ClienteInterface):
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
 
     def create_account(self, renda_mensal: float, idade: int, nome_completo: str, celular: str, email: str, categoria: str, saldo: float) -> None:
         with self.__db_connection as database:
             try:
-                account_data = CPFTable(
+                account_data = ClienteTable(
                     renda_mensal=renda_mensal,
                     idade=idade,
                     nome_completo=nome_completo,
