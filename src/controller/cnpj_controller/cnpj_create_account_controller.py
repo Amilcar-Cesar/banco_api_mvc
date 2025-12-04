@@ -1,9 +1,9 @@
 import re
-from src.models.sqlite.interface.cpf_repository import CpfRepositoryInterface
+from src.models.sqlite.interface.cnpj_repository import CnpjRepositoryInterface
 
 class CpfCreateAccountController():
-    def __init__(self, cpf_repository: CpfRepositoryInterface) -> None:
-        self.__cpf_repository = cpf_repository
+    def __init__(self, cnpj_repository: CnpjRepositoryInterface) -> None:
+        self.__cnpj_repository = cnpj_repository
 
     def create_account(self, account_data: dict) -> dict:
             
@@ -29,12 +29,12 @@ class CpfCreateAccountController():
             raise ValueError("Nome da pessoa inválido!")
 
     def __create(self, renda_mensal: float, idade: int, nome_completo: str, celular: str, email: str, categoria: str, saldo: float):
-         self.__cpf_repository.create_account(renda_mensal, idade, nome_completo, celular, email, categoria, saldo)
+         self.__cnpj_repository.create_account(renda_mensal, idade, nome_completo, celular, email, categoria, saldo)
 
     def __format_response(self, account_data) -> dict:
          return {
               "data": {
-                   "type": "CPF",
+                   "type": "CNPJ",
                    "count": 1,
                    "attributes": account_data
               }

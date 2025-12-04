@@ -45,3 +45,21 @@ class CnpjRepository():
             cliente.saldo = novo_saldo
             database.session.commit()
     
+    def get_account(self, cliente_id: int):
+        with self.__db_connection as database:
+            try:
+                account = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+                return account
+            except Exception:
+                raise ValueError("Conta não existe.")
+    
+    def get_saldo(self,cliente_id: int):
+        with self.__db_connection as database:
+            account = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+            return account.saldo
+
+    def atualizar_saldo(self, cliente_id: int, novo_saldo: float):
+        with self.__db_connection as database:
+            cliente = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+            cliente.saldo = novo_saldo
+            database.session.commit()

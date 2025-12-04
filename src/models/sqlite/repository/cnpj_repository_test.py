@@ -36,7 +36,7 @@ def test_get_account_cnpj():
 
 @pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_get_account_not_found_cnpj():
-    """Testa se retorna None quando tenta buscar conta inexistente de CNPJ"""
+
     cnpj_repo = CnpjRepository(db_connection_handler)
     
     account = cnpj_repo.get_account(999999)
@@ -44,7 +44,7 @@ def test_get_account_not_found_cnpj():
 
 @pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_atualizar_saldo_cnpj():
-    """Testa atualização de saldo para CNPJ"""
+    
     renda_mensal = 20000.00
     idade = 40
     nome_completo = "Empresa ABC Incorporated"
@@ -54,19 +54,16 @@ def test_atualizar_saldo_cnpj():
     saldo_inicial = 50000.0
     
     cnpj_repo = CnpjRepository(db_connection_handler)
-    
-    # Criar conta
+ 
     cnpj_repo.create_account(renda_mensal, idade, nome_completo, celular, email, categoria, saldo_inicial)
     
-    # Buscar a conta para pegar o ID
     with db_connection_handler as database:
         conta = database.session.query(CnpjTable).filter_by(email=email).first()
         cliente_id = conta.id
     
-    # Atualizar saldo
+  
     novo_saldo = 35000.0
     cnpj_repo.atualizar_saldo(cliente_id, novo_saldo)
-    
-    # Verificar se foi atualizado
+   
     account_atualizado = cnpj_repo.get_account(cliente_id)
     assert account_atualizado.saldo == novo_saldo
