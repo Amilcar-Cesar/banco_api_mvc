@@ -11,3 +11,15 @@ class CpfRepositoryInterface(ABC):
     @abstractmethod
     def list_accounts(self) -> CpfTable:
         pass
+
+    @abstractmethod
+    def get_account(self, cliente_id: int):
+        pass
+
+    @abstractmethod
+    def atualizar_saldo(self, cliente_id, novo_saldo):
+        pass
+
+    @abstractmethod
+    def get_saldo(self,cliente_id: int):
+        pass

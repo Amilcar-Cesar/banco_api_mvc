@@ -39,7 +39,12 @@ class CpfRepository():
             except Exception:
                 raise ValueError("Conta não existe.")
     
-    def atualizar_saldo(self, cliente_id, novo_saldo):
+    def get_saldo(self,cliente_id: int):
+        with self.__db_connection as database:
+            account = database.session.query(CpfTable).filter_by(id=cliente_id).first()
+            return account.saldo
+
+    def atualizar_saldo(self, cliente_id: int, novo_saldo: float):
         with self.__db_connection as database:
             cliente = database.session.query(CpfTable).filter_by(id=cliente_id).first()
             cliente.saldo = novo_saldo

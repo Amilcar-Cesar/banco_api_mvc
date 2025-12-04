@@ -1,0 +1,102 @@
+import pytest
+from unittest.mock import Mock
+from src.controller.cpf_controller.cpf_saque_extrato_controller import CpfSaqueExtratoController
+
+
+class TestCpfSaqueExtratoController:
+    
+    @pytest.fixture
+    def mock_repository(self):
+        return Mock()
+    
+    @pytest.fixture
+    def controller(self, mock_repository):
+        return CpfSaqueExtratoController(mock_repository)
+    
+    def test_saque_sucesso(self, controller, mock_repository):
+        cliente_id = 1
+        valor_saque = 100.0
+        saldo_atual = 500.0
+        
+        mock_repository.get_account.return_value = Mock(id=cliente_id)
+        mock_repository.get_saldo.return_value = saldo_atual
+        
+        resultado = controller.saque(cliente_id, valor_saque)
+        
+        assert resultado["sucesso"] == True
+        assert resultado["novo_saldo"] == 400.0
+        mock_repository.atualizar_saldo.assert_called_once_with(cliente_id, 400.0)
+    
+    def test_saque_saldo_insuficiente(self, controller, mock_repository):
+        cliente_id = 1
+        valor_saque = 1000.0
+        saldo_atual = 500.0
+        
+        mock_repository.get_account.return_value = Mock(id=cliente_id)
+        mock_repository.get_saldo.return_value = saldo_atual
+        
+        with pytest.raises(ValueError, match="Saldo insuficiente"):
+            controller.saque(cliente_id, valor_saque)
+    
+    def test_saque_limite_excedido(self, controller, mock_repository):
+        cliente_id = 1
+        valor_saque = 1500.0
+        
+        mock_repository.get_account.return_value = Mock(id=cliente_id)
+        mock_repository.get_saldo.return_value = 5000.0
+        
+        with pytest.raises(ValueError, match="Valor de saque excede o limite"):
+            controller.saque(cliente_id, valor_saque)
+    
+    def test_saque_cliente_nao_existe(self, controller, mock_repository):
+        cliente_id = 999
+        valor_saque = 100.0
+        
+        mock_repository.get_account.side_effect = ValueError("Conta não existe.")
+        
+        with pytest.raises(ValueError, match="Conta não existe"):
+            controller.saque(cliente_id, valor_saque)
+    
+    def test_saque_valor_exato_ao_limite(self, controller, mock_repository):
+        cliente_id = 1
+        valor_saque = 1000.0
+        saldo_atual = 1500.0
+        
+        mock_repository.get_account.return_value = Mock(id=cliente_id)
+        mock_repository.get_saldo.return_value = saldo_atual
+        
+        resultado = controller.saque(cliente_id, valor_saque)
+        
+        assert resultado["sucesso"] == True
+        assert resultado["novo_saldo"] == 500.0
+    
+    def test_extrato_sucesso(self, controller, mock_repository):
+        cliente_id = 1
+        saldo_atual = 1200.50
+        
+        mock_repository.get_account.return_value = Mock(id=cliente_id)
+        mock_repository.get_saldo.return_value = saldo_atual
+        
+        resultado = controller.extrato(cliente_id)
+        
+        assert resultado["mensagem"] == "Saldo atual da conta"
+        assert resultado["saldo"] == 1200.50
+    
+    def test_extrato_cliente_nao_existe(self, controller, mock_repository):
+        cliente_id = 999
+        
+        mock_repository.get_account.side_effect = ValueError("Conta não existe.")
+        
+        with pytest.raises(ValueError, match="Conta não existe"):
+            controller.extrato(cliente_id)
+    
+    def test_extrato_saldo_zero(self, controller, mock_repository):
+        cliente_id = 1
+        saldo_atual = 0.0
+        
+        mock_repository.get_account.return_value = Mock(id=cliente_id)
+        mock_repository.get_saldo.return_value = saldo_atual
+        
+        resultado = controller.extrato(cliente_id)
+        
+        assert resultado["saldo"] == 0.0
