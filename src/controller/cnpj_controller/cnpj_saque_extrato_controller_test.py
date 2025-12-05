@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock
-from src.controller.cnpj_controller.cnpj_saque_extrato_controller import CpfSaqueExtratoController
+from src.controller.cnpj_controller.cnpj_saque_extrato_controller import CnpjSaqueExtratoController
 
 
 class TestCnpjSaqueExtratoController:
@@ -11,7 +11,7 @@ class TestCnpjSaqueExtratoController:
     
     @pytest.fixture
     def controller(self, mock_repository):
-        return CpfSaqueExtratoController(mock_repository)
+        return CnpjSaqueExtratoController(mock_repository)
     
     def test_saque_sucesso(self, controller, mock_repository):
         cliente_id = 1

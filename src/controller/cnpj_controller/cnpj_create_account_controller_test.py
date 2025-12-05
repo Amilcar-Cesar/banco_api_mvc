@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock
-from src.controller.cnpj_controller.cnpj_create_account_controller import CpfCreateAccountController
+from src.controller.cnpj_controller.cnpj_create_account_controller import CnpjCreateAccountController
 
 
 class TestCnpjCreateAccountController:
@@ -11,7 +11,7 @@ class TestCnpjCreateAccountController:
     
     @pytest.fixture
     def controller(self, mock_repository):
-        return CpfCreateAccountController(mock_repository)
+        return CnpjCreateAccountController(mock_repository)
     
     def test_create_account_sucesso(self, controller, mock_repository):
         account_data = {

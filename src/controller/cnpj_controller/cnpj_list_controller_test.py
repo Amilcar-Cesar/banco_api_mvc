@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock
-from src.controller.cnpj_controller.cnpj_list_controller import CpfListAccountsController
+from src.controller.cnpj_controller.cnpj_list_controller import CnpjListAccountsController
 
 
 class TestCnpjListController:
@@ -11,7 +11,7 @@ class TestCnpjListController:
     
     @pytest.fixture
     def controller(self, mock_repository):
-        return CpfListAccountsController(mock_repository)
+        return CnpjListAccountsController(mock_repository)
     
     def test_list_accounts_com_contas(self, controller, mock_repository):
         mock_account1 = Mock(nome_completo="João Silva", idade=30, categoria="PJ", celular="11999999999")

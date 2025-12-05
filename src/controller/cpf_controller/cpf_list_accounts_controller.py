@@ -1,9 +1,10 @@
 from src.models.sqlite.interface.cpf_repository import CpfRepositoryInterface
 from src.models.sqlite.entities.pessoa_fisica import CpfTable
+from src.controller.interface.cpf_controller_interface import CpfControllerInterface
 from typing import List
 
 
-class CpfListAccountsController:
+class CpfListAccountsController(CpfControllerInterface):
     def __init__(self, cpf_repository: CpfRepositoryInterface) -> None:
         self.__cpf_repository = cpf_repository
 

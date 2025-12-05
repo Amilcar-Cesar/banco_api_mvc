@@ -1,11 +1,11 @@
 from src.models.sqlite.interface.cpf_repository import CpfRepositoryInterface
-from src.controller.interface.cliente_controller_interface import ClienteControllerInterface
+from src.controller.interface.cliente_interface import ClienteInterface
 
-class CpfSaqueExtratoController(ClienteControllerInterface):
+class CpfSaqueExtratoController(ClienteInterface):
     def __init__(self, cpf_repository: CpfRepositoryInterface) -> None:
         self.__cpf_repository = cpf_repository
 
-    def sacar(self, cliente_id: int, valor_saque: float) -> dict:
+    def saque(self, cliente_id: int, valor_saque: float) -> dict:
         self.__validar_cliente(cliente_id)
         saldo_result = self.__saldo_suficiente(cliente_id, valor_saque)
         self.__limite_saque(valor_saque)

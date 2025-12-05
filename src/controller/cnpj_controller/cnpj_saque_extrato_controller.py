@@ -1,11 +1,11 @@
 from src.models.sqlite.interface.cnpj_repository import CnpjRepositoryInterface
-from src.controller.interface.cliente_controller_interface import ClienteControllerInterface
+from src.controller.interface.cliente_interface import ClienteInterface
 
-class CnpjSaqueExtratoController(ClienteControllerInterface):
+class CnpjSaqueExtratoController(ClienteInterface):
     def __init__(self, cnpj_repository: CnpjRepositoryInterface) -> None:
         self.__cnpj_repository = cnpj_repository
 
-    def sacar(self, cliente_id: int, valor_saque: float) -> dict:
+    def saque(self, cliente_id: int, valor_saque: float) -> dict:
         self.__validar_cliente(cliente_id)
         saldo_result = self.__saldo_suficiente(cliente_id, valor_saque)
         self.__limite_saque(valor_saque)
