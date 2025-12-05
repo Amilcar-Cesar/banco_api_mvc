@@ -3,7 +3,7 @@ from src.models.sqlite.repository.cnpj_repository import CnpjRepository
 from src.controller.cnpj_controller.cnpj_create_account_controller import CnpjCreateAccountController
 from src.view.cnpj_view.cnpj_create_account_view import CnpjCreateAccountView
 
-def cpf_create_account_composer():
+def cnpj_create_account_composer():
 
     model = CnpjRepository(db_connection_handler)
     controller = CnpjCreateAccountController(model)
