@@ -12,7 +12,7 @@ class CnpjSaqueExtratoController(ClienteInterface):
 
         novo_saldo = saldo_result["novo_saldo"]
         self.__cnpj_repository.atualizar_saldo(cliente_id, novo_saldo)
-        
+
         return {"sucesso": True, "novo_saldo": novo_saldo}
 
     def __validar_cliente(self, cliente_id: int):

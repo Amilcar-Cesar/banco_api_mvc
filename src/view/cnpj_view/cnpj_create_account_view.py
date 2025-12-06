@@ -1,6 +1,6 @@
 from src.controller.interface.cnpj_controller_interface import CnpjControllerInterface
-from view.http_types.http_request import HttpRequest
-from view.http_types.http_response import HttpResponse
+from src.view.http_types.http_request import HttpRequest
+from src.view.http_types.http_response import HttpResponse
 
 class CnpjCreateAccountView:
     def __init__(self, controller: CnpjControllerInterface) -> None:

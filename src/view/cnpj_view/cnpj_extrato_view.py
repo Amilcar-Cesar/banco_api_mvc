@@ -1,6 +1,6 @@
 from src.controller.interface.cliente_interface import ClienteInterface
-from view.http_types.http_request import HttpRequest
-from view.http_types.http_response import HttpResponse
+from src.view.http_types.http_request import HttpRequest
+from src.view.http_types.http_response import HttpResponse
 
 class CnpjExtratoView:
     def __init__(self, controller: ClienteInterface) -> None:
