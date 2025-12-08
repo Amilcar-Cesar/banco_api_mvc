@@ -1,9 +1,8 @@
-from src.controller.interface.cpf_controller_interface import CpfControllerInterface
 from src.view.http_types.http_request import HttpRequest
 from src.view.http_types.http_response import HttpResponse
 
 class CpfCreateAccountView:
-    def __init__(self, controller: CpfControllerInterface) -> None:
+    def __init__(self, controller) -> None:
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:

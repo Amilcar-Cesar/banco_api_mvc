@@ -1,9 +1,8 @@
-from src.controller.interface.cnpj_controller_interface import CnpjControllerInterface
 from src.view.http_types.http_request import HttpRequest
 from src.view.http_types.http_response import HttpResponse
 
 class CnpjListAccountView:
-    def __init__(self, controller: CnpjControllerInterface) -> None:
+    def __init__(self, controller) -> None:
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:

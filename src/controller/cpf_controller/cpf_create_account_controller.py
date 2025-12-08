@@ -1,8 +1,7 @@
 import re
 from src.models.sqlite.interface.cpf_repository import CpfRepositoryInterface
-from src.controller.interface.cpf_controller_interface import CpfControllerInterface
 
-class CpfCreateAccountController(CpfControllerInterface):
+class CpfCreateAccountController:
     def __init__(self, cpf_repository: CpfRepositoryInterface) -> None:
         self.__cpf_repository = cpf_repository
 
