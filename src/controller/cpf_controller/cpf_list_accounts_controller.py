@@ -22,9 +22,8 @@ class CpfListAccountsController:
 
         for account in accounts:
             formated_accounts.append({"nome_completo": account.nome_completo,
-                                      "idade": account.idade,
-                                      "categoria": account.categoria,
-                                      "celular": account.celular})
+                                      "email": account.email,
+                                      })
         
         return {
             "data": {
