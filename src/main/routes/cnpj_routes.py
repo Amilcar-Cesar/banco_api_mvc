@@ -26,7 +26,7 @@ def create_account():
     except Exception as error:
         return jsonify({
             "status": "error",
-            "message": "Erro ao processar a requisição"
+            "message": str(error)
         }), 500
     
 @cnpj_route_bp.route("/cnpj_list", methods=["GET"])
@@ -47,7 +47,7 @@ def list_account():
     except Exception as error:
         return jsonify({
             "status": "error",
-            "message": "Erro ao processar a requisição"
+            "message": str(error)
         }), 500
     
 @cnpj_route_bp.route("/cnpj_saque", methods=["POST"])
