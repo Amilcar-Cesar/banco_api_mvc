@@ -18,16 +18,9 @@ def create_account():
         return jsonify(http_response.body), http_response.status_code
     
     except ValueError as error:
-        return jsonify({
-            "status": "error",
-            "message": str(error)
-        }), 400
-    
+        return jsonify({"status": "error", "message": str(error)}), 400
     except Exception as error:
-        return jsonify({
-            "status": "error",
-            "message": str(error)
-        }), 500
+        return jsonify({"status": "error", "message": str(error)}), 500
     
 @cnpj_route_bp.route("/cnpj_list", methods=["GET"])
 def list_account():
@@ -39,22 +32,15 @@ def list_account():
         return jsonify(http_response.body), http_response.status_code
     
     except ValueError as error:
-        return jsonify({
-            "status": "error",
-            "message": str(error)
-        }), 400
-    
+        return jsonify({"status": "error", "message": str(error)}), 400
     except Exception as error:
-        return jsonify({
-            "status": "error",
-            "message": str(error)
-        }), 500
+        return jsonify({"status": "error", "message": str(error)}), 500
     
 @cnpj_route_bp.route("/cnpj_saque", methods=["POST"])
 def saque():
     try:
 
-        cliente_id = request.args.get("id")
+        cliente_id = request.args.get("id", type=int)
         valor_saque = request.json.get("valor_saque")
 
         http_request = HttpRequest(
@@ -67,22 +53,15 @@ def saque():
         return jsonify(http_response.body), http_response.status_code
     
     except ValueError as error:
-        return jsonify({
-            "status": "error",
-            "message": str(error)
-        }), 400
-    
+        return jsonify({"status": "error", "message": str(error)}), 400
     except Exception as error:
-        return jsonify({
-            "status": "error",
-            "message": "Erro ao processar a requisição"
-        }), 500
+        return jsonify({"status": "error", "message": str(error)}), 500
     
 @cnpj_route_bp.route("/cnpj_extrato", methods=["GET"])
 def extrato():
     try:
         
-        cliente_id = request.args.get("id")
+        cliente_id = request.args.get("id", type=int)
 
         http_request = HttpRequest(
             body=None,
@@ -94,13 +73,6 @@ def extrato():
         return jsonify(http_response.body), http_response.status_code
     
     except ValueError as error:
-        return jsonify({
-            "status": "error",
-            "message": str(error)
-        }), 400
-    
+        return jsonify({"status": "error", "message": str(error)}), 400
     except Exception as error:
-        return jsonify({
-            "status": "error",
-            "message": "Erro ao processar a requisição"
-        }), 500
+        return jsonify({"status": "error", "message": str(error)}), 500

@@ -21,45 +21,41 @@ class CnpjRepository():
             except Exception as exception:
                 database.session.rollback()
                 raise exception
-    
+
     def list_accounts(self):
         with self.__db_connection as database:
             try:
-                accounts = database.session.query(CnpjTable.nome_completo, CnpjTable.email).all()
-                
+                # Retorna o objeto completo para evitar erros no controller
+                accounts = database.session.query(CnpjTable).all()
                 return accounts
             except Exception:
                 return []
-        
+
     def get_account(self, cliente_id: int):
         with self.__db_connection as database:
             try:
                 account = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+                if not account:
+                    raise ValueError("Conta não existe.") 
                 return account
-            except Exception:
-                raise ValueError("Conta não existe.")
-    
-    def atualizar_saldo(self, cliente_id, novo_saldo):
-        with self.__db_connection as database:
-            cliente = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
-            cliente.saldo = novo_saldo
-            database.session.commit()
-    
-    def get_account(self, cliente_id: int):
-        with self.__db_connection as database:
-            try:
-                account = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
-                return account
-            except Exception:
-                raise ValueError("Conta não existe.")
-    
-    def get_saldo(self,cliente_id: int):
+            except Exception as e:
+                raise e
+
+    def get_saldo(self, cliente_id: int):
         with self.__db_connection as database:
             account = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+
+            if not account:
+                raise ValueError("Conta não encontrada para realizar o saque.")
+
             return account.saldo
 
     def atualizar_saldo(self, cliente_id: int, novo_saldo: float):
         with self.__db_connection as database:
             cliente = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
+
+            if not cliente:
+                 raise ValueError("Conta não encontrada para atualizar saldo.")
+
             cliente.saldo = novo_saldo
             database.session.commit()

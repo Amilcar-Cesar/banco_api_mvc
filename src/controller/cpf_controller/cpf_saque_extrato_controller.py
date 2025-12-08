@@ -16,8 +16,15 @@ class CpfSaqueExtratoController(ClienteInterface):
         return {"sucesso": True, "novo_saldo": novo_saldo}
 
     def __validar_cliente(self, cliente_id: int):
-        account = self.__cpf_repository.get_account(cliente_id)
-        return account
+        try:
+            account = self.__cpf_repository.get_account(cliente_id)
+            if not account:
+                raise ValueError("Conta não existe.")
+            return account
+        except ValueError as e:
+            raise e
+        except Exception as e:
+            raise ValueError("Erro ao validar cliente.") from e
 
     def __saldo_suficiente(self, cliente_id: int, valor_saque: float):
         saldo_atual = self.__cpf_repository.get_saldo(cliente_id)
