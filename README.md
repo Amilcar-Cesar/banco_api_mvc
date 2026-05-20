@@ -1,39 +1,69 @@
 # banco_api_mvc
-## Descrição do Projeto
-Este projeto consiste em uma API (Application Programming Interface) desenvolvida em Python para simular operações bancárias básicas, como gerenciamento de contas e transações.
 
-A aplicação foi desenvolvida seguindo o padrão de design Model-View-Controller (MVC), visando modularidade, organização e facilidade de manutenção.
+Uma API bancária minimalista escrita em Python, criada como projeto de estudo e aplicação de portfólio. O objetivo principal é demonstrar organização em arquitetura MVC, clareza no design de código e a capacidade de implementar operações bancárias básicas (criação de contas, listagem, saques e extratos) usando SQLite como persistência leve.
 
-## Arquitetura: Model-View-Controller (MVC)
-A aplicação segue estritamente o padrão Model-View-Controller (MVC), que é um padrão arquitetural que separa a lógica da aplicação em três componentes principais, cada um com responsabilidades distintas:
+**Status:** Projeto de estudo / portfólio — não destinado a produção.
 
-Model (Modelo): É responsável pela lógica de negócios e pela manipulação dos dados. No contexto desta API, o Model lida com a conexão e persistência de dados no banco, executando operações como criação, leitura, atualização e exclusão (CRUD) de contas e transações.
+**Principais pontos:**
+- **Propósito:** Exibir habilidades de arquitetura, organização de código e testes básicos.
+- **Arquitetura:** Model-View-Controller (MVC).
+- **Persistência:** SQLite (arquivo de banco local / migrações em `init/schema.sql`).
 
-View (Visão): Em uma API, a View não é uma interface gráfica, mas sim o componente que formata os dados para o cliente. É responsável por transformar os dados processados pelo Model em um formato de resposta padrão, geralmente JSON.
+**Tecnologias:** Python, SQLite.
 
-Controller (Controlador): Atua como o intermediário. Ele recebe as requisições HTTP do cliente, chama os métodos apropriados no Model para processar a lógica de negócios e, em seguida, utiliza a View para formatar a resposta que será enviada de volta ao cliente.
+**Estrutura do repositório (visão rápida para recrutadores)**
 
-## Tecnologias Utilizadas
-As tecnologias e ferramentas utilizadas no desenvolvimento deste projeto são:
+- **`run.py`**: Ponto de entrada para executar a API localmente. Veja [run.py](run.py).
+- **`requirements.txt`**: Dependências do projeto. Veja [requirements.txt](requirements.txt).
+- **`init/schema.sql`**: Script SQL para criar o esquema usado nos testes/desenvolvimento. Veja [init/schema.sql](init/schema.sql).
+- **`src/`**: Código-fonte organizado por camadas:
+	- **`src/controller/`**: Controladores que recebem requisições e coordenam respostas. Ex.: [src/controller/cpf_controller/cpf_create_account_controller.py](src/controller/cpf_controller/cpf_create_account_controller.py)
+	- **`src/main/routes/`**: Definição de rotas da API. Ex.: [src/main/routes/cpf_routes.py](src/main/routes/cpf_routes.py)
+	- **`src/models/sqlite/`**: Repositórios e entidades que lidam com persistência (SQLite). Ex.: [src/models/sqlite/repository/cpf_repository.py](src/models/sqlite/repository/cpf_repository.py)
+	- **`src/view/`**: Formatação das respostas HTTP (object -> response). Ex.: [src/view/cpf_view/cpf_create_account_view.py](src/view/cpf_view/cpf_create_account_view.py)
 
-Linguagem de Programação: Python
+- **`tests/` / testes integrados e unitários:** Dentro de `src/` há arquivos de teste, por exemplo controllers e repositórios com sufixo `_test.py` (use `pytest` para rodar, caso instalado).
 
-Banco de Dados: SQLite (indicado pelo arquivo bancomvc.db), um sistema de gerenciamento de banco de dados relacional leve e sem servidor.
+Como o repositório foi organizado para estudo, os nomes das pastas e arquivos seguem a separação por responsabilidade (controllers, composers, models, view, etc.), o que facilita a leitura e a avaliação técnica por recrutadores.
 
-Framework API: Um framework Python (inferido) para lidar com roteamento, requisições HTTP e estruturar a aplicação como uma API.
+Guia rápido — executar localmente
 
-Gerenciamento de Dependências: requirements.txt.
+1. Crie um ambiente virtual (recomendado):
 
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
 
-# Como Executar
-## Para iniciar a API localmente, siga os passos abaixo:
+2. Instale dependências:
 
-Clone o repositório:
+```bash
+pip install -r requirements.txt
+```
 
-- git clone https://github.com/Amilcar-Cesar/banco_api_mvc
-- cd banco_api_mvc
-- Instale as dependências: Certifique-se de ter o Python e o pip instalados.
-- pip install -r requirements.txt
-- Execute a Aplicação: python run.py
+3. Inicialize o esquema (opcional):
 
-A API estará acessível no endereço e porta configurados no arquivo run.py (geralmente http://localhost:<PORTA>).
+```bash
+sqlite3 banco.db < init/schema.sql
+```
+
+4. Execute a aplicação:
+
+```bash
+python run.py
+```
+
+Provavelmente a API ficará disponível em `http://localhost:5000` ou na porta definida em `run.py`.
+
+Execução de testes (se configurado):
+
+```bash
+pytest -q
+```
+
+Notas para recrutadores
+
+- **Objetivo do projeto:** demonstrar organização de código, conhecimento de padrões (MVC) e prática com persistência local e testes.
+- **Escopo:** implementação didática de operações bancárias (contas CPF/CNPJ, saques, extratos, listagens). Não contém autenticação, segurança ou preparação para produção.
+- **O que avaliar:** clareza de separação de responsabilidades, estrutura de arquivos, uso de repositórios/entidades, e testes de unidade/integrados presentes.
+
