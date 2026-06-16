@@ -1,5 +1,5 @@
 import re
-from src.models.sqlite.interface.cnpj_repository import CnpjRepositoryInterface
+from src.models.mysql.interface.cnpj_repository import CnpjRepositoryInterface
 
 class CnpjCreateAccountController:
     def __init__(self, cnpj_repository: CnpjRepositoryInterface) -> None:

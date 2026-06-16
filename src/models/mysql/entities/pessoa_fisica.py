@@ -1,14 +1,14 @@
-from sqlalchemy import Column, String, Integer, REAL
-from src.models.sqlite.settings.base import Base
+from sqlalchemy import Column, String, Integer, DECIMAL
+from src.models.mysql.settings.base import Base
 
 class CpfTable(Base):
     __tablename__ = "pessoa_fisica"
 
     id = Column(Integer, primary_key=True)
-    renda_mensal = Column(REAL)
+    renda_mensal = Column(DECIMAL(12, 2))
     idade = Column(Integer)
-    nome_completo = Column(String)
-    celular = Column(String)
-    email = Column(String)
-    categoria = Column(String)
-    saldo = Column(REAL)
+    nome_completo = Column(String(255))
+    celular = Column(String(50))
+    email = Column(String(255))
+    categoria = Column(String(50))
+    saldo = Column(DECIMAL(12, 2))

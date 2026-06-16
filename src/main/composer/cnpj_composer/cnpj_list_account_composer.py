@@ -1,5 +1,5 @@
-from src.models.sqlite.settings.connection import db_connection_handler
-from src.models.sqlite.repository.cnpj_repository import CnpjRepository
+from src.models.mysql.settings.connection import db_connection_handler
+from src.models.mysql.repository.cnpj_repository import CnpjRepository
 from src.controller.cnpj_controller.cnpj_list_controller import CnpjListAccountsController
 from src.view.cnpj_view.cnpj_list_accounts_view import CnpjListAccountView
 

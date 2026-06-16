@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 class DBConnectionHandler:
     def __init__(self):
-        self.__connection_string = "mysql+pymysql://admin:6kZ#{N7A%A44po$N@localhost:3306/bank_database"
+        self.__connection_string = "mysql+pymysql://root:02HLxr7qT0p6BtA@localhost:3306/bank_database"
         self.__engine = None
         self.session = None
 

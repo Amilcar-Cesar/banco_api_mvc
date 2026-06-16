@@ -1,5 +1,5 @@
-from src.models.sqlite.interface.cnpj_repository import CnpjRepositoryInterface
-from src.models.sqlite.entities.pessoa_juridica import CnpjTable
+from src.models.mysql.interface.cnpj_repository import CnpjRepositoryInterface
+from src.models.mysql.entities.pessoa_juridica import CnpjTable
 from typing import List
 
 
@@ -21,9 +21,13 @@ class CnpjListAccountsController():
         formated_accounts = []
 
         for account in accounts:
-            formated_accounts.append({"nome_completo": account.nome_completo,
-                                      "email": account.email
-                                      })
+            formated_accounts.append({
+                "nome_completo": account.nome_completo,
+                "idade": account.idade,
+                "categoria": account.categoria,
+                "celular": account.celular,
+                "email": account.email,
+            })
         
         return {
             "data": {

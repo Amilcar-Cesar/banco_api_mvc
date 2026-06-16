@@ -1,11 +1,11 @@
-from src.models.sqlite.settings.connection import db_connection_handler
+from src.models.mysql.settings.connection import db_connection_handler
 from .cnpj_repository import CnpjRepository
-from src.models.sqlite.entities.pessoa_juridica import CnpjTable
+from src.models.mysql.entities.pessoa_juridica import CnpjTable
 import pytest
 
 #db_connection_handler.connect_to_db()
 
-@pytest.mark.skip(reason="interaçao com o banco de dados")
+#@pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_get_account_cnpj():
     """Testa se consegue recuperar uma conta existente de CNPJ"""
     renda_mensal = 15000.00
@@ -34,7 +34,7 @@ def test_get_account_cnpj():
     assert account.email == email
     assert account.saldo == saldo
 
-@pytest.mark.skip(reason="interaçao com o banco de dados")
+#@pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_get_account_not_found_cnpj():
 
     cnpj_repo = CnpjRepository(db_connection_handler)
@@ -42,7 +42,7 @@ def test_get_account_not_found_cnpj():
     account = cnpj_repo.get_account(999999)
     assert account is None
 
-@pytest.mark.skip(reason="interaçao com o banco de dados")
+#@pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_atualizar_saldo_cnpj():
     
     renda_mensal = 20000.00

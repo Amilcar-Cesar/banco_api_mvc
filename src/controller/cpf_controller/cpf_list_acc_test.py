@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
 from .cpf_list_accounts_controller import CpfListAccountsController
-from src.models.sqlite.entities.pessoa_fisica import CpfTable
+from src.models.mysql.entities.pessoa_fisica import CpfTable
 
 
 class TestCpfListAccountsController:

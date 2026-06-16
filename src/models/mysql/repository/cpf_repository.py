@@ -1,4 +1,4 @@
-from src.models.sqlite.entities.pessoa_fisica import CpfTable
+from src.models.mysql.entities.pessoa_fisica import CpfTable
 
 class CpfRepository():
     def __init__(self, db_connection) -> None:

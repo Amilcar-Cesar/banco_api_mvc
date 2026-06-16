@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from src.models.sqlite.settings.connection import db_connection_handler
+from src.models.mysql.settings.connection import db_connection_handler
 
 from src.main.routes.cnpj_routes import cnpj_route_bp
 from src.main.routes.cpf_routes import cpf_route_bp

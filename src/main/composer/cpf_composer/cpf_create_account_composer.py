@@ -1,5 +1,5 @@
-from src.models.sqlite.settings.connection import db_connection_handler
-from src.models.sqlite.repository.cpf_repository import CpfRepository
+from src.models.mysql.settings.connection import db_connection_handler
+from src.models.mysql.repository.cpf_repository import CpfRepository
 from src.controller.cpf_controller.cpf_create_account_controller import CpfCreateAccountController
 from src.view.cpf_view.cpf_create_account_view import CpfCreateAccountView
 

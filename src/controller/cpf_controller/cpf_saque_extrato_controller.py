@@ -1,4 +1,4 @@
-from src.models.sqlite.interface.cpf_repository import CpfRepositoryInterface
+from src.models.mysql.interface.cpf_repository import CpfRepositoryInterface
 from src.controller.interface.cliente_interface import ClienteInterface
 
 class CpfSaqueExtratoController(ClienteInterface):

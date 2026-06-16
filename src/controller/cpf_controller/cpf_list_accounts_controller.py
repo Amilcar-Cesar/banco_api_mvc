@@ -1,5 +1,5 @@
-from src.models.sqlite.interface.cpf_repository import CpfRepositoryInterface
-from src.models.sqlite.entities.pessoa_fisica import CpfTable
+from src.models.mysql.interface.cpf_repository import CpfRepositoryInterface
+from src.models.mysql.entities.pessoa_fisica import CpfTable
 from typing import List
 
 
@@ -21,9 +21,13 @@ class CpfListAccountsController:
         formated_accounts = []
 
         for account in accounts:
-            formated_accounts.append({"nome_completo": account.nome_completo,
-                                      "email": account.email,
-                                      })
+            formated_accounts.append({
+                "nome_completo": account.nome_completo,
+                "idade": account.idade,
+                "categoria": account.categoria,
+                "celular": account.celular,
+                "email": account.email,
+            })
         
         return {
             "data": {

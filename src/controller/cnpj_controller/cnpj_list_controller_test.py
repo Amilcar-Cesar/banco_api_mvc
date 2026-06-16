@@ -44,6 +44,8 @@ class TestCnpjListController:
         resultado = controller.list()
         
         assert resultado["data"]["count"] == 1
+        assert resultado["data"]["type"] == "CNPJ"
+        assert resultado["data"]["attributes"][0]["nome_completo"] == "João Silva"
         assert resultado["data"]["attributes"][0]["idade"] == 30
         assert resultado["data"]["attributes"][0]["categoria"] == "PJ"
     

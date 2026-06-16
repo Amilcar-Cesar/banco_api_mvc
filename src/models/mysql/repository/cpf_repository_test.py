@@ -1,11 +1,11 @@
-from src.models.sqlite.settings.connection import db_connection_handler
+from src.models.mysql.settings.connection import db_connection_handler
 from .cpf_repository import CpfRepository
-from src.models.sqlite.entities.pessoa_fisica import CpfTable
+from src.models.mysql.entities.pessoa_fisica import CpfTable
 import pytest
 
 db_connection_handler.connect_to_db()
 
-@pytest.mark.skip(reason="interaçao com o banco de dados")
+#@pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_get_account():
     """Testa se consegue recuperar uma conta existente de CPF"""
     renda_mensal = 3000.00
@@ -34,7 +34,7 @@ def test_get_account():
     assert account.email == email
     assert account.saldo == saldo
 
-@pytest.mark.skip(reason="interaçao com o banco de dados")
+#@pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_get_account_not_found():
     """Testa se retorna None quando tenta buscar conta inexistente de CPF"""
     cpf_repo = CpfRepository(db_connection_handler)
@@ -42,7 +42,7 @@ def test_get_account_not_found():
     account = cpf_repo.get_account(999999)
     assert account is None
 
-@pytest.mark.skip(reason="interaçao com o banco de dados")
+#@pytest.mark.skip(reason="interaçao com o banco de dados")
 def test_atualizar_saldo_cpf():
     """Testa atualização de saldo para CPF"""
     renda_mensal = 4000.00

@@ -1,5 +1,5 @@
 from abc import ABC,abstractmethod
-from src.models.sqlite.entities.pessoa_juridica import CnpjTable
+from src.models.mysql.entities.pessoa_juridica import CnpjTable
 
 
 class CnpjRepositoryInterface(ABC):

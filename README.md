@@ -1,15 +1,15 @@
 # banco_api_mvc
 
-Uma API bancária minimalista escrita em Python, criada como projeto de estudo e aplicação de portfólio. O objetivo principal é demonstrar organização em arquitetura MVC, clareza no design de código e a capacidade de implementar operações bancárias básicas (criação de contas, listagem, saques e extratos) usando SQLite como persistência leve.
+Uma API bancária minimalista escrita em Python, criada como projeto de estudo e aplicação de portfólio. O objetivo principal é demonstrar organização em arquitetura MVC, clareza no design de código e a capacidade de implementar operações bancárias básicas (criação de contas, listagem, saques e extratos) usando MySQL como persistência principal.
 
 **Status:** Projeto de estudo / portfólio — não destinado a produção.
 
 **Principais pontos:**
 - **Propósito:** Exibir habilidades de arquitetura, organização de código e testes básicos.
 - **Arquitetura:** Model-View-Controller (MVC).
-- **Persistência:** SQLite (arquivo de banco local / migrações em `init/schema.sql`).
+- **Persistência:** MySQL (container local via `docker-compose.yml` / esquema em `init/schema.sql`).
 
-**Tecnologias:** Python, SQLite.
+**Tecnologias:** Python, MySQL, SQLAlchemy.
 
 **Estrutura do repositório (visão rápida para recrutadores)**
 
@@ -19,7 +19,7 @@ Uma API bancária minimalista escrita em Python, criada como projeto de estudo e
 - **`src/`**: Código-fonte organizado por camadas:
 	- **`src/controller/`**: Controladores que recebem requisições e coordenam respostas. Ex.: [src/controller/cpf_controller/cpf_create_account_controller.py](src/controller/cpf_controller/cpf_create_account_controller.py)
 	- **`src/main/routes/`**: Definição de rotas da API. Ex.: [src/main/routes/cpf_routes.py](src/main/routes/cpf_routes.py)
-	- **`src/models/sqlite/`**: Repositórios e entidades que lidam com persistência (SQLite). Ex.: [src/models/sqlite/repository/cpf_repository.py](src/models/sqlite/repository/cpf_repository.py)
+	- **`src/models/mysql/`**: Repositórios, entidades e conexão que lidam com persistência (MySQL). Ex.: [src/models/mysql/repository/cpf_repository.py](src/models/mysql/repository/cpf_repository.py)
 	- **`src/view/`**: Formatação das respostas HTTP (object -> response). Ex.: [src/view/cpf_view/cpf_create_account_view.py](src/view/cpf_view/cpf_create_account_view.py)
 
 - **`tests/` / testes integrados e unitários:** Dentro de `src/` há arquivos de teste, por exemplo controllers e repositórios com sufixo `_test.py` (use `pytest` para rodar, caso instalado).
@@ -41,19 +41,27 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Inicialize o esquema (opcional):
+3. Suba o banco MySQL local:
 
 ```bash
-sqlite3 banco.db < init/schema.sql
+docker compose up -d mysql
 ```
 
-4. Execute a aplicação:
+4. Inicialize o esquema no banco:
+
+```bash
+mysql -h 127.0.0.1 -P 3306 -uroot -p bank_database < init/schema.sql
+```
+
+5. Execute a aplicação:
 
 ```bash
 python run.py
 ```
 
-Provavelmente a API ficará disponível em `http://localhost:5000` ou na porta definida em `run.py`.
+Provavelmente a API ficará disponível em `http://localhost:3000`, na porta definida em `run.py`.
+
+Observação: o acesso ao banco está configurado em [src/models/mysql/settings/connection.py](src/models/mysql/settings/connection.py), com a string de conexão apontando para o container MySQL local.
 
 Execução de testes (se configurado):
 

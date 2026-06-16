@@ -1,4 +1,4 @@
-from src.models.sqlite.entities.pessoa_juridica import CnpjTable
+from src.models.mysql.entities.pessoa_juridica import CnpjTable
 
 class CnpjRepository():
     def __init__(self, db_connection) -> None:
@@ -35,8 +35,6 @@ class CnpjRepository():
         with self.__db_connection as database:
             try:
                 account = database.session.query(CnpjTable).filter_by(id=cliente_id).first()
-                if not account:
-                    raise ValueError("Conta não existe.") 
                 return account
             except Exception as e:
                 raise e
