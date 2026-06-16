@@ -1,0 +1,25 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+class DBConnectionHandler:
+    def __init__(self):
+        self.__connection_string = "mysql+pymysql://admin:6kZ#{N7A%A44po$N@localhost:3306/bank_database"
+        self.__engine = None
+        self.session = None
+
+    def connect_to_db(self):
+        self.__engine = create_engine(self.__connection_string)
+
+    def get_engine(self):
+        return self.__engine
+
+    def __enter__(self):
+        session_maker = sessionmaker()
+        self.session = session_maker(bind=self.__engine)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.close()
+        return False
+
+db_connection_handler = DBConnectionHandler()
