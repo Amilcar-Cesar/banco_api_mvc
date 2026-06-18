@@ -1,15 +1,17 @@
 from src.controller.interface.cliente_interface import ClienteInterface
 from src.view.http_types.http_request import HttpRequest
 from src.view.http_types.http_response import HttpResponse
+from src.errors.error_handler import handle_error
 
 class CnpjSaqueView:
     def __init__(self, controller: ClienteInterface) -> None:
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
-
-        cliente_id = http_request.param["id"]
-        valor_saque = http_request.body["valor_saque"]
-        body_response = self.__controller.saque(cliente_id, valor_saque)
-
-        return HttpResponse(status_code=201, body=body_response)
+        try:
+            cliente_id = http_request.param["id"]
+            valor_saque = http_request.body["valor_saque"]
+            body_response = self.__controller.saque(cliente_id, valor_saque)
+            return HttpResponse(status_code=201, body=body_response)
+        except Exception as error:
+            return handle_error(error)

@@ -1,5 +1,6 @@
 import re
 from src.models.mysql.interface.cpf_repository import CpfRepositoryInterface
+from src.errors.types.http_bad_request import HttpBadRequest
 
 
 class CpfCreateAccountController:
@@ -25,7 +26,7 @@ class CpfCreateAccountController:
         invalid_caracteres = re.compile(r"[^A-Za-zÀ-ÿ\s]")
 
         if invalid_caracteres.search(nome_completo):
-            raise ValueError("Nome da pessoa inválido!")
+            raise HttpBadRequest("Nome da pessoa inválido!")
 
     def __create(
         self,

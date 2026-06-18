@@ -1,5 +1,6 @@
 import re
 from src.models.mysql.interface.cnpj_repository import CnpjRepositoryInterface
+from src.errors.types.http_bad_request import HttpBadRequest
 
 class CnpjCreateAccountController:
     def __init__(self, cnpj_repository: CnpjRepositoryInterface) -> None:
@@ -23,10 +24,10 @@ class CnpjCreateAccountController:
         
     def __validate_full_name(self, nome_completo: str) -> None:
         
-        invalid_caracteres = re.compile(r'[0-9@#$%&*]')
+        invalid_caracteres = re.compile(r'[0-9@#$%&*!,;:()_+=|\\\/<>?]')
 
         if invalid_caracteres.search(nome_completo):
-            raise ValueError("Nome da pessoa inválido!")
+            raise HttpBadRequest("Nome da instituição inválido!")
 
     def __create(self, renda_mensal: float, idade: int, nome_completo: str, celular: str, email: str, categoria: str, saldo: float):
          self.__cnpj_repository.create_account(renda_mensal, idade, nome_completo, celular, email, categoria, saldo)

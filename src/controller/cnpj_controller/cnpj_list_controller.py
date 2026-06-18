@@ -1,7 +1,7 @@
 from src.models.mysql.interface.cnpj_repository import CnpjRepositoryInterface
 from src.models.mysql.entities.pessoa_juridica import CnpjTable
 from typing import List
-
+from src.errors.types.http_not_found import HttpNotFound
 
 class CnpjListAccountsController():
     def __init__(self, cnpj_repository: CnpjRepositoryInterface) -> None:
@@ -15,6 +15,9 @@ class CnpjListAccountsController():
 
     def __get_accounts_in_db(self) -> list:
         accounts = self.__cnpj_repository.list_accounts()
+
+        if not accounts:
+             raise HttpNotFound("Nenhuma conta encontrada!")
         return accounts
     
     def __format_response(self, accounts: List[CnpjTable]) -> dict:

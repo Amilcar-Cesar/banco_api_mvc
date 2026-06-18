@@ -1,5 +1,6 @@
 from src.models.mysql.interface.cpf_repository import CpfRepositoryInterface
 from src.models.mysql.entities.pessoa_fisica import CpfTable
+from src.errors.types.http_not_found import HttpNotFound
 from typing import List
 
 
@@ -15,6 +16,8 @@ class CpfListAccountsController:
 
     def __get_accounts_in_db(self) -> list:
         accounts = self.__cpf_repository.list_accounts()
+        if not accounts:
+            raise HttpNotFound("Nenhuma conta encontrada!")
         return accounts
     
     def __format_response(self, accounts: List[CpfTable]) -> dict:
